@@ -1,0 +1,30 @@
+{
+  "name": "awslogs",
+  "version": "0.0.10",
+  "description": "AWS CloudWatch for Humans",
+  "main": "index.js",
+  "bin": {
+    "awslogs": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "https://github.com/starak/awslogs.git",
+  "keywords": [
+    "AWS",
+    "Log",
+    "CloudWatch",
+    "watch"
+  ],
+  "author": "starak",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "2.268.1",
+    "bluebird": "3.5.1",
+    "command-line-args": "5.0.2",
+    "command-line-usage": "5.0.5",
+    "console-stamp": "^0.2.6",
+    "moment": "2.22.2",
+    "rxjs": "6.2.1"
+  }
+}
