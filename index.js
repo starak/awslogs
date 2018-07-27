@@ -11,7 +11,7 @@ const pack = require('./package.json');
 if (command.name === 'help' || !command.name) {
   utils.displayUsage();
 }
-let time;
+let time, prefix;
 require('console-stamp')(console, {
   label: false,
   datePrefix: '',
@@ -20,10 +20,20 @@ require('console-stamp')(console, {
     stamp: ['yellow']
   },
   formatter: () => {
+    if (prefix || command.options.timestamp) {
+      let string = [];
+      if (command.options.timestamp && time) {
+        string.push(moment(time).format(command.options.pattern || 'MM/DD/YYYY HH:mm:ss:SSS'));
+      }
+      if (prefix) {
+        string.push(prefix);
+      }
+      return string.length > 0 ? string.join(' ') : '';
+    }
     if (!time || !command.options.timestamp) {
       return '';
     }
-    return moment(time).format(command.options.pattern || 'MM/DD/YYYY HH:mm:ss:SSS');
+
   }
 });
 
@@ -37,8 +47,10 @@ switch (command.name) {
   case 'get':
     get.log(command.options).subscribe(
       event => {
+        //console.log(event);
         time = event.timestamp;
-        console.log(event.message);
+        prefix = event.multi ? event.prefix : undefined;
+        console.log(event.message.replace(/\n$/,''));
       },
       err => console.error(err),
       () => console.log("DONE")
